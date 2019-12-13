@@ -117,6 +117,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+# custom authentications
+
+AUTH_USER_MODEL = 'django_school.User'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
