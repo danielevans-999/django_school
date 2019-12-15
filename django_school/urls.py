@@ -7,6 +7,7 @@ urlpatterns =  [
     
     path('',views.index,name='home'),
     path('accounts/student/', views.StudentSignup.as_view(), name='student'),
+    path('accounts/teacher/', views.TeacherSignUpView.as_view(), name='teacher'),
     
 ]
 
