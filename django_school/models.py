@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.base_user import (BaseUserManager, AbstractBaseUser)
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
 
 
 class MyUserManager(BaseUserManager):
@@ -88,9 +87,10 @@ class StudentProfile(models.Model):
     last_name = models.CharField(max_length=255)
     phone = models.IntegerField(blank=True, null=True)
     photo = models.ImageField(upload_to='pictures/')
-    grade = models.PositiveSmallIntegerField(choices=grade_level_choices)
+    grade = models.IntegerField(choices=grade_level_choices, null=True, blank=True)
     user = models.OneToOneField(
         User, primary_key=True, on_delete=models.CASCADE)
+
 
 
 class Result(models.Model):
@@ -113,23 +113,6 @@ class TeacherProfile(models.Model):
         User, primary_key=True, on_delete=models.CASCADE)
 
 
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        StudentProfile.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.studentprofile.save()
 
-
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        TeacherProfile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.teacherprofile.save()
