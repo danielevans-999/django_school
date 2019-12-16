@@ -30,4 +30,5 @@ class UserAdmin(BaseUserAdmin):
     
 admin.site.register(User, UserAdmin)
 admin.site.register(StudentProfile)
+admin.site.register(Result)
 admin.site.unregister(Group)
