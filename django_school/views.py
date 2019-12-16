@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 def index(request):
     if request.user.is_authenticated:
         if request.user.user_type == 1:
-            print('Hello teacher')
+            return redirect('teacher_profile')
         else:
             return redirect('student_profile')
     return render(request, 'djangoschool/index.html')

@@ -13,7 +13,7 @@ urlpatterns =  [
     path ('accounts/student/update/', views.update_profile, name='update_profile'),
     path ('accounts/teacher/profile/', views.teacher_profile_info, name='teacher_profile'),
     path ('accounts/teacher/edit/', views.teacher_profile_edit, name='tchedit_profile'),
-    path ('accounts/teacher/update/', views.teacher_update_profile, name='teacher-update_profile'),
+    path ('accounts/teacher/update/', views.teacher_update_profile, name='teacher_update_profile'),
 ]
 
 if settings.DEBUG:
