@@ -8,6 +8,8 @@ urlpatterns =  [
     path('',views.index,name='home'),
     path('accounts/student/', views.StudentSignup.as_view(), name='student'),
     path('accounts/teacher/', views.TeacherSignUpView.as_view(), name='teacher'),
+    path ('accounts/student/profile/', views.student_profile_info, name='student_profile'),
+    path ('accounts/student/edit/', views.student_profile_edit, name='stdedit_profile'),
     
 ]
 
