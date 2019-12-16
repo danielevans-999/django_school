@@ -2,18 +2,40 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-12">
-        <img src="{{profile.photo.url}}" class="img-thumbnail img-responsive img-fluid" alt=""
-            style="border-radius: 50%; width:100px; height:100px; border-color: brown; border-width: 1.5px;">
-        <a href="{% url 'stdedit_profile' %}" class="btn btn-sm btn-info">Add profile</a>
-        <a href="{% url 'update_profile' %}" class="btn btn-sm btn-info">Update Profile</a>
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card mt-1" style="width: 18rem;">
+            <img src="{{profile.photo.url}}" class="img-thumbnail img-responsive img-fluid" alt=""
+                style="border-radius: 50%; width:100px; height:100px; border-width: 1.5px;">
+            <a href="{% url 'stdedit_profile' %}" class="btn blue-gradient btn-sm btn-info">Add profile</a>
+            <a href="{% url 'update_profile' %}" class="btn blue-gradient btn-sm btn-info">Update Profile</a>
 
-        <p><b>Admission Number:</b> {{profile.admission_no}}</p>
-        <p><b>First Name:</b> {{profile.first_name}}</p>
-        <p><b>Last Name:</b> {{profile.last_name}}</p>
-        <p><b>Phone:</b> {{profile.phone}}</p>
-        <p><b>Grade: </b>{{profile.grade}}</p>
+            <p class="ml-2"><b>Admission Number:</b> {{profile.admission_no}}</p>
+            <p class="ml-2"><b>First Name:</b> {{profile.first_name}}</p>
+            <p class="ml-2"><b>Last Name:</b> {{profile.last_name}}</p>
+            <p class="ml-2"><b>Phone:</b> {{profile.phone}}</p>
+            <p class="ml-2"><b>Grade: </b>{{profile.grade}}</p>
+        </div>
     </div>
-
+    <div class="col-sm-12 col-md-6 col-lg-8">
+        <h3 class="text-center">Student Results</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Term 1 </th>
+                    <th scope="col">Term 2</th>
+                    <th scope="col">Term 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-active">
+                    <th scope="row">{{profile.grade}}</th>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
