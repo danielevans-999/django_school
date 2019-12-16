@@ -73,4 +73,4 @@ def update_profile(request):
         return redirect('home')
     else:
         form = StudentProfileForm(instance=request.user.studentprofile)
-        return render(request,'djangoschool/edit.html',{"form":form})
+        return render(request,'djangoschool/update-profile.html',{"form":form})
