@@ -114,7 +114,12 @@ class TeacherProfile(models.Model):
     phone = models.IntegerField(blank=True, null=True)
     user = models.OneToOneField(
         User, primary_key=True, on_delete=models.CASCADE)
-
+    
+class ParentProfile(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='images/',default='images/blur.jpeg')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
 
 

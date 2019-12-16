@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import CreateView
 from . models import *
-from . forms import (StudentSignUpForm, TeachersSignUpForm, StudentProfileForm, TeacherProfileForm, ResultUpdateForm)
+from . forms import *
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -10,6 +10,8 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.user_type == 1:
             return redirect('teacher_profile')
+        elif request.user.user_type == 3:
+            return redirect('parent_profile')
         else:
             return redirect('student_profile')
     return render(request, 'djangoschool/index.html')
@@ -36,6 +38,20 @@ class TeacherSignUpView(CreateView):
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'Teacher'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+    
+class ParentSignUpView(CreateView):
+    model = User
+    form_class = ParentSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'Parent'
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
@@ -125,3 +141,22 @@ def results_update(request,id):
         form = ResultUpdateForm()
         return render(request, 'djangoschool/results.html', {"form":form, "student":student} )
         
+# parent's parent
+def parent_profile_info(request):
+    current_user=request.user
+    profile_info = ParentProfile.objects.filter(user=current_user).first()
+    return render(request,'djangoschool/parent.html',{"profile":profile_info,"current_user":current_user})
+
+def parent_profile_edit(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ParentProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = current_user
+            profile.save()
+        return redirect('parent_profile')
+
+    else:
+        form = ParentProfileForm()
+        return render(request,'djangoschool/parent-profile.html',{"form":form})
