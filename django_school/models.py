@@ -90,6 +90,9 @@ class StudentProfile(models.Model):
     grade = models.IntegerField(choices=grade_level_choices, null=True, blank=True)
     user = models.OneToOneField(
         User, primary_key=True, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.last_name
 
 
 

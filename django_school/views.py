@@ -80,10 +80,10 @@ def update_profile(request):
 # Teacher's views
 
 def teacher_profile_info(request):
-    
+    students = StudentProfile.objects.all()
     current_user=request.user
     profile_info = TeacherProfile.objects.filter(user=current_user).first()
-    return render(request,'djangoschool/teacher-profile.html',{"profile":profile_info,"current_user":current_user})
+    return render(request,'djangoschool/teacher-profile.html',{"profile":profile_info,"current_user":current_user, "students":students})
 
 def teacher_profile_edit(request):
     current_user = request.user
@@ -101,7 +101,6 @@ def teacher_profile_edit(request):
     
 def teacher_update_profile(request):
     user_profile  =  TeacherProfile.objects.get(user=request.user)
-    
     if request.method == "POST":
         form =  TeacherProfileForm(request.POST,request.FILES,instance=request.user.teacherprofile)
         if form.is_valid():
@@ -118,7 +117,7 @@ def results_update(request,id):
         form =  ResultUpdateForm(request.POST)
         if form.is_valid():
             result = form.save(commit=False)
-            result.teacher = current_user
+            result.teacher = current_user.teacherprofile
             result.results = student
             result.save()
         return redirect('teacher_profile')

@@ -9,11 +9,30 @@
             <a href="{% url 'tchedit_profile' %}" class="btn blue-gradient btn-sm btn-info">Add profile</a>
             <a href="{% url 'teacher_update_profile' %}" class="btn blue-gradient btn-sm btn-info">Update Profile</a>
 
-            
+
             <p class="ml-2"><b>First Name:</b> {{profile.first_name}}</p>
             <p class="ml-2"><b>Last Name:</b> {{profile.last_name}}</p>
             <p class="ml-2"><b>Phone:</b> {{profile.phone}}</p>
-            
+
         </div>
     </div>
+    <div class="col-sm-12 col-md-6 col-lg-8">
+        <h3 class="text-center">All My-Students</h3>
+        <ul class="list-group">
+            {% for student in students%}
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-2">
+                        <p>{{student.first_name}}</p>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-8"></div>
+                    <div class="col-sm-12 col-md-6 col-lg-2">
+                        <a href="{% url 'results' student.pk %}" class="btn btn-sm btn-success">results</a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock  %}

@@ -6,7 +6,9 @@
 <div class="row">
     <div class="col-md-8 col-sm-10 col-lg-3"></div>
     <div class="col-md-8 col-sm-10 col-lg-6">
-        <form method="post" novalidate id="profile" action="{% url 'results' student.id %}" enctype="multipart/form-data">
+        <h3 class="text-center">Results-Update Form</h3>
+        <hr>
+        <form method="post" novalidate id="profile" action="{% url 'results' student.pk %}" enctype="multipart/form-data">
             <div class="form-group">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}">
