@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import CreateView
 from . models import *
-from . forms import (StudentSignUpForm, TeachersSignUpForm, StudentProfileForm, TeacherProfileForm)
+from . forms import (StudentSignUpForm, TeachersSignUpForm, StudentProfileForm, TeacherProfileForm, ResultUpdateForm)
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -110,3 +110,19 @@ def teacher_update_profile(request):
     else:
         form = TeacherProfileForm(instance=request.user.teacherprofile)
         return render(request,'djangoschool/teacher-update-profile.html',{"form":form})
+    
+def results_update(request,id):
+    current_user =  request.user
+    student =  StudentProfile.objects.get(pk=id)
+    if request.method == 'POST':
+        form =  ResultUpdateForm(request.POST)
+        if form.is_valid():
+            result = form.save(commit=False)
+            result.teacher = current_user
+            result.results = student
+            result.save()
+        return redirect('teacher_profile')
+    else:
+        form = ResultUpdateForm()
+        return render(request, 'djangoschool/results.html', {"form":form, "student":student} )
+        
