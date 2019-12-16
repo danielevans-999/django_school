@@ -1,0 +1,17 @@
+{% extends 'djangoschool/base.html'%}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-12">
+        <img src="{{profile.photo.url}}" class="img-thumbnail img-responsive img-fluid" alt=""  style="border-radius: 50%; width:100px; height:100px; border-color: brown; border-width: 1.5px;">
+        <a href="{% url 'stdedit_profile' %}" class="btn btn-sm btn-info">Add profile</a>
+        <a href="{% url 'update_profile' %}" class="btn btn-sm btn-info">Update Profile</a>
+        
+        <p>Admission Number:{{profile.admission_no}}</p>
+        <p>First Name:{{profile.first_name}}</p>
+        <p>Last Name:</p>
+        <p>Phone:</p>
+    </div>
+
+</div>
+{% endblock %}
