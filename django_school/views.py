@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import CreateView
 from . models import *
-from . forms import (StudentSignUpForm, TeachersSignUpForm, StudentProfileForm, TeacherProfile)
+from . forms import (StudentSignUpForm, TeachersSignUpForm, StudentProfileForm, TeacherProfileForm)
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -98,3 +98,15 @@ def teacher_profile_edit(request):
     else:
         form = TeacherProfileForm()
         return render(request,'djangoschool/teacher-edit.html',{"form":form})
+    
+def teacher_update_profile(request):
+    user_profile  =  TeacherProfile.objects.get(user=request.user)
+    
+    if request.method == "POST":
+        form =  TeacherProfileForm(request.POST,request.FILES,instance=request.user.teacherprofile)
+        if form.is_valid():
+            form.save()
+        return redirect('home')
+    else:
+        form = TeacherProfileForm(instance=request.user.teacherprofile)
+        return render(request,'djangoschool/teacher-update-profile.html',{"form":form})
