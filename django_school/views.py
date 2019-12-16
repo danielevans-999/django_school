@@ -42,7 +42,8 @@ class TeacherSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
-    
+   
+    # Student's  views
 def student_profile_info(request):
     
     current_user=request.user
@@ -74,3 +75,12 @@ def update_profile(request):
     else:
         form = StudentProfileForm(instance=request.user.studentprofile)
         return render(request,'djangoschool/update-profile.html',{"form":form})
+    
+    
+# Teacher's views
+
+def teacher_profile_info(request):
+    
+    current_user=request.user
+    profile_info = TeacherProfile.objects.filter(user=current_user).first()
+    return render(request,'djangoschool/teacher-profile.html',{"profile":profile_info,"current_user":current_user})
