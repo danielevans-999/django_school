@@ -11,6 +11,7 @@ urlpatterns =  [
     path ('accounts/student/profile/', views.student_profile_info, name='student_profile'),
     path ('accounts/student/edit/', views.student_profile_edit, name='stdedit_profile'),
     path ('accounts/student/update/', views.update_profile, name='update_profile'),
+    path ('accounts/teacher/profile/', views.teacher_profile_info, name='teacher_profile')
 ]
 
 if settings.DEBUG:
