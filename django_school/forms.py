@@ -92,3 +92,8 @@ class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
         exclude =['user']
+
+class TeacherProfileForm(forms.ModelForm):
+    class Meta:
+        model = TeacherProfile
+        exclude =['user']
