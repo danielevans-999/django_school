@@ -97,3 +97,8 @@ class TeacherProfileForm(forms.ModelForm):
     class Meta:
         model = TeacherProfile
         exclude =['user']
+        
+class ResultUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        exclude = ['results', 'teacher']
