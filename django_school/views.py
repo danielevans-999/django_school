@@ -145,7 +145,12 @@ def results_update(request,id):
 def parent_profile_info(request):
     current_user=request.user
     profile_info = ParentProfile.objects.filter(user=current_user).first()
-    return render(request,'djangoschool/parent.html',{"profile":profile_info,"current_user":current_user})
+    if 'student' in request.GET and request.GET['student']:
+        search_term = request.GET.get('student')
+        student = StudentProfile.objects.filter( admission_no__icontains=search_term)
+        return render(request,'djangoschool/parent.html',{"profile":profile_info,"current_user":current_user, "student":student})
+    else:
+        return render(request,'djangoschool/parent.html',{"profile":profile_info,"current_user":current_user})
 
 def parent_profile_edit(request):
     current_user = request.user
